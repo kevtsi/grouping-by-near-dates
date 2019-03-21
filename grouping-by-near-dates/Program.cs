@@ -111,14 +111,12 @@ namespace grouping_by_near_dates
                 int numRecords = 0;
                 double diff = 1;
 
-                for (int j = i; j < records.Count; j++)
+                for (int j = i; diff <= thresholdSeconds; j++)
                 {
-                    if (diff <= thresholdSeconds)
-                    {
-                        Console.WriteLine("[{0}] Id: {1}, Diff: {2}", category, records[j].Id, diff);
-                        numRecords++;
-                        batch.Records.Add(records[j]);
-                    }
+                    Console.WriteLine("[{0}] Id: {1}, Diff: {2}", category, records[j].Id, diff);
+                    numRecords++;
+                    batch.Records.Add(records[j]);
+
                     if ((j + 1) < records.Count)
                     {
                         diff = (records[j].CreatedDate - records[j + 1].CreatedDate).TotalSeconds;
